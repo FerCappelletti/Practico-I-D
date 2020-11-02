@@ -1,0 +1,24 @@
+body {
+
+    background: #abbaab;
+    background: -webkit-linear-gradient(to right, #ffffff, #abbaab);
+    background: linear-gradient(to right, #ffffff, #abbaab);
+}
+
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: white;
+}
+
+i {
+    margin: 15px
+}
+
+i:hover {
+    cursor: pointer;
+}
+
+.list-group-item {
+    height: 60px;
+    margin-bottom: .5em;
+}
