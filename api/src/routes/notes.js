@@ -2,12 +2,12 @@ const express = require("express");
 const api = express.Router();
 const noteController = require("../controllers/notes");
 
-api.get("/", noteController.getNotes);
+api.get("/:group", noteController.getNotes);
 api.post("/", noteController.create);
 api
   .route("/:id")
-  .get(noteController.get)
-  .patch( noteController.update)
+  .get(noteController.getOne)
+  .patch( noteController.edit)
   .delete(noteController.$delete);
-
+api.patch('/update/:id', noteController.update)
 module.exports = api;

@@ -1,53 +1,67 @@
 const Note = require("../models/Note");
 
-const get = async (req, res) => {
-  const note = await Note.findById(req.params.id);
-  res.status(201).json(note);
+const getOne = async (req, res) => {
+  console.log('entra en el get',req.params)
+  const note = await Note.findById({_id : req.params.id});
+  console.log(note)
+  res.status(200).json(note);
 };
 
 const getNotes = async (req, res) => {
-	//find by group
-  const notes = await Note.find({state: req.body.state});
-  console.log(notes);
+  const notes = await Note.find({ group: req.params.group });
   res.json(notes);
 };
 
 const create = async (req, res) => {
-  const { title, description, date, author, state } = req.body;
+  const { title, description, date, username, group } = req.body;
+
   const note = new Note({
     title,
     description,
     date,
-    author,
-    state,
+    username,
+    group,
   });
-
   await note.save();
   res.status(201).json({ message: "OK" });
 };
 
-const update = async (req, res) => {
-	const { title, description, author, state } = req.body;
+const edit = async (req, res) => {
+  console.log(req.params.id)
+  const { title, description, username } = req.body;
 
-	const note = await Note.findOneAndUpdate(req.params.id, {
+  const note = await Note.findOneAndUpdate(req.params.id, {
     title,
     description,
-    author,
-    state,
+    username
   });
-	res.status(200).json(note);
+  res.status(200).json(note);
+};
+
+const update = async (req, res) => {
+  const note = await Note.updateOne(
+    { _id: req.params.id },
+    {
+      $set: {
+        group: req.body.group,
+      },
+    }
+  );
+
+  res.status(200).json({ message: "OK" });
 };
 
 const $delete = async (req, res) => {
-	// not sure to use this
+  // not sure to use this
   const note = await Note.findByIdAndRemove(req.params.id);
   res.status(200).json(note);
 };
 
 module.exports = {
-  get,
+  getOne,
   getNotes,
   create,
+  edit,
   update,
   $delete,
 };

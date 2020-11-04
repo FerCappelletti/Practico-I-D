@@ -3,14 +3,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { getUsers } from "../repository/RepositoryUsers";
-import { postNote } from "../repository/RepositoryNotes";
+import { postNote, editNote, getNote } from "../repository/RepositoryNotes";
 
-function Note() {
+function Note(props) {
   const [users, setUsers] = useState([]);
   const [username, setUserName] = useState("");
   const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [idParam, setIdParam] = useState(props.match.params.id ? true : false);
+  const [note, setNote] = useState([]);
 
   useEffect(() => {
     allUsers();
@@ -22,14 +24,37 @@ function Note() {
       setUsers(res.data);
     }
   };
+console.log(idParam)
+  useEffect(async () => {
+
+    if (idParam) {
+      const res = await getNote(props.match.params.id)
+      setNote(res.data)
+    }
+  }, []);
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await postNote({ username, date, title, description});
-    console.log(res);
-    if (res.status === 201) {
-      window.location.href= '/'
+    if (idParam) {
+      await editNote({
+        username,
+        date,
+        title,
+        description,
+        group: "To Do",
+        id: props.match.params.id,
+      });
+    } else {
+      const res = await postNote({
+        username,
+        date,
+        title,
+        description,
+        group: "To Do",
+      });
     }
+    window.location.href = '/'
   };
 
   const onChangeDate = (date) => {
@@ -39,7 +64,7 @@ function Note() {
   return (
     <div className="col-md-6 offset-md-3">
       <div className="card card-body">
-        <h4>Crear nueva tarea</h4>
+        <h4>{ "Crear nueva tarea"}</h4>
         <form onSubmit={onSubmit}>
           <div className="form-group">
             {/* SELECT USER */}
@@ -55,13 +80,15 @@ function Note() {
             <select
               className="form-control"
               name="user"
-              value={username}
+              value={note.length ? note.username : username}
               onChange={(e) => {
                 setUserName(e.target.value);
               }}
               required
             >
-              <option>Elije un usuario para asignar una tarea...</option>
+              <option>
+                {note.length ? note.username :  "Elije un usuario para asignar una tarea..."}
+              </option>
               {users.map((user) => (
                 <option key={user.username}>{user.username}</option>
               ))}
@@ -76,7 +103,7 @@ function Note() {
               placeholder="Tarea"
               name="title"
               required
-              value={title}
+              value={note.title ? note.title : title}
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
@@ -91,7 +118,7 @@ function Note() {
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
-              value={description}
+              value={note.description ? note.description : description}
             />
           </div>
 
@@ -103,7 +130,7 @@ function Note() {
             />
           </div>
           <button type="submit" className="btn btn-dark">
-            Crear Tarea
+            {note.length ? "Editar Tarea" : "Crear Tarea"}
           </button>
         </form>
       </div>

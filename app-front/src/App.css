@@ -11,11 +11,26 @@ body {
 }
 
 i {
-    margin: 15px
+    margin: 15px;
 }
 
-i:hover {
+i:hover,
+a:hover {
     cursor: pointer;
+    transform: translateY(-1.5px);
+}
+
+.fa-trash {
+    color: #f1192f;
+}
+
+
+.fa-check-double {
+    color: #28a745
+}
+
+.fa-share {
+    color: #ffc107
 }
 
 .list-group-item {
