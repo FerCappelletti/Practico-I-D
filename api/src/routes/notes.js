@@ -4,6 +4,7 @@ const noteController = require("../controllers/notes");
 
 api.get("/:group", noteController.getNotes);
 api.post("/", noteController.create);
+api.get('/find/:id', noteController.getOne)
 api
   .route("/:id")
   .patch( noteController.edit)

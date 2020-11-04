@@ -24,15 +24,17 @@ function Note(props) {
       setUsers(res.data);
     }
   };
-console.log(idParam)
-  useEffect(async () => {
 
+  useEffect(() => {
     if (idParam) {
-      const res = await getNote(props.match.params.id)
-      setNote(res.data)
+      return getOneNote()
     }
-  }, []);
+  }, [])
 
+  async function getOneNote() {
+      const res = await getNote(props.match.params.id);
+      return setNote(res.data)
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +56,7 @@ console.log(idParam)
         group: "To Do",
       });
     }
-    window.location.href = '/'
+    window.location.href = "/";
   };
 
   const onChangeDate = (date) => {
@@ -64,7 +66,7 @@ console.log(idParam)
   return (
     <div className="col-md-6 offset-md-3">
       <div className="card card-body">
-        <h4>{ "Crear nueva tarea"}</h4>
+        <h4>{note.length ? "Editar la tarea" : "Crear nueva tarea"}</h4>
         <form onSubmit={onSubmit}>
           <div className="form-group">
             {/* SELECT USER */}
@@ -80,14 +82,16 @@ console.log(idParam)
             <select
               className="form-control"
               name="user"
-              value={note.length ? note.username : username}
+              value={ username}
               onChange={(e) => {
                 setUserName(e.target.value);
               }}
               required
             >
               <option>
-                {note.length ? note.username :  "Elije un usuario para asignar una tarea..."}
+                {note.length
+                  ? note.username
+                  : "Elije un usuario para asignar una tarea..."}
               </option>
               {users.map((user) => (
                 <option key={user.username}>{user.username}</option>
@@ -103,7 +107,7 @@ console.log(idParam)
               placeholder="Tarea"
               name="title"
               required
-              value={note.title ? note.title : title}
+              value={note.length ? note.title : title}
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
@@ -118,7 +122,7 @@ console.log(idParam)
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
-              value={note.description ? note.description : description}
+              value={note.length ? note.description : description}
             />
           </div>
 

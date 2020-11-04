@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import "moment/locale/es";
 
 import {
-  $deleteNote,
   editGroup,
-  editNote,
   getNotes,
-  gotToProgress,
-  postNote,
 } from "../../repository/RepositoryNotes";
 
 function InProgressNotes() {
@@ -29,7 +26,6 @@ function InProgressNotes() {
   const onClick = async (_id, e, group) => {
     e.preventDefault();
     const res = await editGroup({ _id, group: group });
-    console.log(res);
     if ((res.status = 200)) {
       window.location.href = '/'
     }
@@ -44,7 +40,7 @@ function InProgressNotes() {
               <h5>{note.group}</h5>
             </div>
             <div className="card-body">
-              <h6>Título: {note.title}</h6>
+              <h5>Título: {note.title}</h5>
               <p>
                 <b>Descripción: </b>
                 {note.description}

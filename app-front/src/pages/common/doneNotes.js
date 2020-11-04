@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import moment from "moment";
+import "moment/locale/es";
 
 import {
-  $deleteNote,
-  editNote,
   getNotes,
-  editGroup,
-  postNote,
-  gotToProgress,
+  editGroup
 } from "../../repository/RepositoryNotes";
 
 function DoneNotes() {
@@ -41,10 +37,10 @@ function DoneNotes() {
             <h5>{note.group}</h5>
           </div>
           <div className="card-body">
-            <h6>
+            <h5>
               <b>Título: </b>
               {note.title}
-            </h6>
+            </h5>
             <p>
               <b>Descripción: </b>
               {note.description}
