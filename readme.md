@@ -16,21 +16,38 @@ MongoDB
 git clone https://github.com/FerCappelletti/Practico-I-D.git
 ```
 ```
+cd api/
+```
+
+```
 npm install
 ```
 
-2 - cd api/
+2 - Conectarse a mongoDB como servicio
+
+```
+mongod
+```
+
 ```
 npm run dev
 ```
 
-Abrira el servidor en tu local en el puerto 4000
+Abrira el servidor en tu local en el puerto 4000 y generará la base de datos
 
-3 - Volver a la raíz del proyecto (cd ..)
-    cd app-front/
-    ```
-    npm start
-    ```
+3 - Abrir una nueva bash en la raíz del proyecto
+```
+cd app-front/
+```
+  
+```
+npm install
+```
+
+```
+npm start
+```
+
 
 Abrira la landing en localhost:3000
 
