@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-import {
-  getNotes
-} from "../../repository/RepositoryNotes";
+import { getNotes } from "../../repository/RepositoryNotes";
 
-function DoneNotes() {
+function DeletedNotes() {
   moment.locale("es");
 
   const [notes, setNotes] = useState([]);
@@ -21,20 +19,24 @@ function DoneNotes() {
   };
 
   return (
-    <div className="row">
+    <div className="row mt-5">
+      <div className={"card-body bg-danger text-white"}>
+        <h5>{"DELETED"}</h5>
+      </div>
       {notes.map((note) => (
-        <div className="col-md-4 p-2" key={note._id}>
-          <div className={"card-body bg-danger text-white"}>
-            <h5>{note.group}</h5>
-          </div>
+        <div className="col-sm-12 pb-2" key={note._id}>
           <div className="card-body">
-            <h6>Título: {note.title}</h6>
-            <p>{note.description}</p>
-            <p className="card-subtitle mb-3 text-dark">
-              Asignada a: <b>{note.username}</b>
+            <h5 className="card-header">Título: {note.title}</h5>
+            <p>
+              <b>Descripción: </b>
+              {note.description}
             </p>
             <p className="card-subtitle mb-3 text-dark">
-              <b>{moment(note.date).fromNow()}</b>
+              <b>Asignada a:</b> {note.username}
+            </p>
+            <p className="card-subtitle mb-3 text-dark">
+              <b>Eliminada: </b>
+              {moment(note.date).fromNow()}
             </p>
           </div>
         </div>
@@ -42,4 +44,4 @@ function DoneNotes() {
     </div>
   );
 }
-export default DoneNotes;
+export default DeletedNotes;

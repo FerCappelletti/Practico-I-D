@@ -7,7 +7,6 @@ export const getUsers = async () => {
 }
 
 export const postUser = async (username) => {
-
     const res = await axios.post(URL + '/users', { username })
     return res.data
 }

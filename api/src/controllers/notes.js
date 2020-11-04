@@ -1,12 +1,5 @@
 const Note = require("../models/Note");
 
-const getOne = async (req, res) => {
-  console.log('entra en el get',req.params)
-  const note = await Note.findById({_id : req.params.id});
-  console.log(note)
-  res.status(200).json(note);
-};
-
 const getNotes = async (req, res) => {
   const notes = await Note.find({ group: req.params.group });
   res.json(notes);
@@ -58,7 +51,6 @@ const $delete = async (req, res) => {
 };
 
 module.exports = {
-  getOne,
   getNotes,
   create,
   edit,

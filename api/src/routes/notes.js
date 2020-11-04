@@ -6,7 +6,6 @@ api.get("/:group", noteController.getNotes);
 api.post("/", noteController.create);
 api
   .route("/:id")
-  .get(noteController.getOne)
   .patch( noteController.edit)
   .delete(noteController.$delete);
 api.patch('/update/:id', noteController.update)
