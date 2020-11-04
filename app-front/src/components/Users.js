@@ -19,7 +19,7 @@ function Users() {
     const res = await postUser(username);
 
     if ((res.status = "201")) {
-      getUsers();
+      allUsers();
     }
     setUsername("");
   };
@@ -28,38 +28,10 @@ function Users() {
     e.preventDefault();
     const res = await $deleteUser(_id);
     if ((res.status = 200)) {
-      return (
-        <div class="modal" id="myModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Está seguro de eliminar el usuario</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body">{res.username}</div>
-
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  data-dismiss="modal"
-                  onClick={() => {
-                    getUsers()
-                  }}
-                >
-                  Eliminar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+      allUsers();
     }
   };
-
+  
   return (
     <div className="row">
       <div className="col-md-6">

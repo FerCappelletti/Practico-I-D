@@ -1,11 +1,10 @@
 const Note = require("../models/Note");
 
+
 const getOne = async (req, res) => {
-  console.log('entra en el get',req.params)
-  const note = await Note.findById({_id : req.params.id});
-  console.log(note)
-  res.status(200).json(note);
-};
+  const note = await Note.findById(req.params.id);
+  res.json(note)
+}
 
 const getNotes = async (req, res) => {
   const notes = await Note.find({ group: req.params.group });
@@ -20,14 +19,13 @@ const create = async (req, res) => {
     description,
     date,
     username,
-    group,
+    group
   });
   await note.save();
   res.status(201).json({ message: "OK" });
 };
 
 const edit = async (req, res) => {
-  console.log(req.params.id)
   const { title, description, username } = req.body;
 
   const note = await Note.findOneAndUpdate(req.params.id, {
@@ -58,8 +56,8 @@ const $delete = async (req, res) => {
 };
 
 module.exports = {
-  getOne,
   getNotes,
+  getOne,
   create,
   edit,
   update,

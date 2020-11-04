@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import moment from "moment";
+import "moment/locale/es";
 
 import {
-  $deleteNote,
-  editNote,
   getNotes,
-  editGroup,
-  postNote,
-  gotToProgress,
+  editGroup
 } from "../../repository/RepositoryNotes";
 
 function DoneNotes() {
@@ -34,20 +30,27 @@ function DoneNotes() {
   };
 
   return (
-    <div className="row">
+    <div className="col p-2">
       {notes.map((note) => (
-        <div className="col-md-4 p-2" key={note._id}>
+        <div className="col-sm-12 mb-5" key={note._id}>
           <div className={"card-body bg-success text-white"}>
             <h5>{note.group}</h5>
           </div>
           <div className="card-body">
-            <h6>Título: {note.title}</h6>
-            <p>{note.description}</p>
-            <p className="card-subtitle mb-3 text-dark">
-              Asignada a: <b>{note.username}</b>
+            <h5>
+              <b>Título: </b>
+              {note.title}
+            </h5>
+            <p>
+              <b>Descripción: </b>
+              {note.description}
             </p>
             <p className="card-subtitle mb-3 text-dark">
-              <b>{moment(note.date).fromNow()}</b>
+              <b>Asignada a:</b> {note.username}
+            </p>
+            <p className="card-subtitle mb-3 text-dark">
+              <b>Terminada: </b>
+              {moment(note.date).fromNow()}
             </p>
           </div>
           <div className="card-footer d-flex justify-content-around align-items-baseline">
@@ -57,16 +60,9 @@ function DoneNotes() {
               data-placement="left"
               title="Ésta acción eliminará la nota"
               onClick={(e) => {
-                onClick(note._id, e, 'Deleted');
+                onClick(note._id, e, "Deleted");
               }}
             ></i>
-            <Link
-              className="fas fa-edit"
-              data-toggle="tooltip"
-              data-placement="left"
-              title="Editar tarea"
-              to={"/edit/" + note._id}
-            ></Link>
           </div>
         </div>
       ))}

@@ -7,12 +7,11 @@ export const getUsers = async () => {
 }
 
 export const postUser = async (username) => {
-
-    const res = await axios.post(URL + '/users', { username })
+    const res = await axios.post(API_URL_BASE + '/users', { username })
     return res.data
 }
 
 export const $deleteUser = async (_id) => {
-    const res = await axios.delete(URL + "/users/" + _id);
+    const res = await axios.delete(API_URL_BASE + "/users/" + _id);
     return res.data
 }
