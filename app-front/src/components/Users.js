@@ -64,7 +64,7 @@ function Users() {
             >
               {user.username}
               <i
-                className="fas fa-trash btn btn-dark"
+                className="fas fa-trash btn btn-dark danger"
                 data-toggle="tooltip"
                 data-placement="left"
                 title="Ésta acción eliminará el usuario"
