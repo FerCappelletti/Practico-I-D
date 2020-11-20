@@ -6,8 +6,8 @@ function NavBar () {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <h5>Taller Mecánico Autocity</h5>
-            <span>Tareas Pendientes</span>
+            <h5>Panel de Tareas</h5>
+
           </Link>
           <button
             className="navbar-toggler"

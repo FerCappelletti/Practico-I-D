@@ -7,8 +7,11 @@ const users_routes = require("./routes/users");
 const notes_routes = require("./routes/notes");
 
 //settings
-app.set("port", process.env.PORT ? process.env.PORT : 3000);
+app.set("port", process.env.PORT || 3000);
 
+app.get('/',(req, res) => {
+    res.send('Ok')
+})
 //middlewares
 app.use(cors({ origin: "*" }), bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
